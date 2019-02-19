@@ -81,6 +81,16 @@ export default class App extends Component {
     })
   }
 
+  onSearch = (text) => {
+    this.setState(({todoData}) => {
+      var newArray = todoData.filter( (todo) => {
+        return todo.label.includes(text);
+      });
+      return {
+        todoData: newArray
+      }
+    })
+  }
   render() {
     const { todoData } = this.state;
     const doneCount = todoData
@@ -91,7 +101,7 @@ export default class App extends Component {
       <div className="todo-app" >
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
-          <SearchPanel />
+          <SearchPanel onSearch={this.onSearch} />
           <ItemStatusFilter />
         </div>
 
